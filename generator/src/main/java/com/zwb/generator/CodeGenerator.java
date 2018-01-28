@@ -39,6 +39,7 @@ public class CodeGenerator
         if (CommonUtil.isEmpty(serviceTarget))
         {
             LoggerUtil.warn(CodeGenerator.class, "没有获取到配置项：service.target-package");
+            throw new RuntimeException("没有配置service.target-package");
         }
 
         // 工程位于磁盘的路径
@@ -46,6 +47,7 @@ public class CodeGenerator
         if (CommonUtil.isNull(targetProject))
         {
             LoggerUtil.warn(CodeGenerator.class, "没有获取到配置项：target-project");
+            throw new RuntimeException("没有配置target-project");
         }
 
         // 生成文件所在工程目录
@@ -55,6 +57,10 @@ public class CodeGenerator
             targetProjectDir.mkdirs();
             LoggerUtil.info(CodeGenerator.class, "生成目录：{}", new Object[]{targetProjectDir});
         }
+        else
+        {
+            LoggerUtil.info(CodeGenerator.class, "找到target-project：{}", new Object[]{targetProject});
+        }
 
         // 生成文件所在工程的包路径
         String serviceTargetPackage = serviceTarget.replaceAll("\\.", "/");
@@ -62,18 +68,47 @@ public class CodeGenerator
         if (!serviceTargetFile.exists())
         {
             serviceTargetFile.mkdirs();
+            LoggerUtil.info(CodeGenerator.class, "生成包路径：{}", new Object[]{serviceTargetPackage});
         }
-        // 生成文件
-        generateFile(serviceTargetFile, false);
+        else
+        {
+            LoggerUtil.info(CodeGenerator.class, "找到service.target-package：{}", new Object[]{serviceTarget});
+        }
+
+        try
+        {
+            // 生成接口service文件
+            generateFile(serviceTargetFile, false);
+        }
+        catch (Exception e)
+        {
+            LoggerUtil.error(CodeGenerator.class, e);
+            throw new RuntimeException(e);
+        }
 
         // 生成实现类包
-        File serviceImplTargetFile = new File(serviceTargetFile, "impl");
+        String serviceImpFileName = serviceTargetFile.getPath() + "/impl";
+        File serviceImplTargetFile = new File(serviceImpFileName);
         if (!serviceImplTargetFile.exists())
         {
             serviceImplTargetFile.mkdirs();
+            LoggerUtil.info(CodeGenerator.class, "生成包路径：{}", new Object[]{serviceImpFileName});
         }
-        // 生成文件
-        generateFile(serviceImplTargetFile, true);
+        else
+        {
+            LoggerUtil.info(CodeGenerator.class, "找到service.target-package：{}", new Object[]{serviceImpFileName});
+        }
+
+        try
+        {
+            // 生成文件
+            generateFile(serviceImplTargetFile, true);
+        }
+        catch (Exception e)
+        {
+            LoggerUtil.error(CodeGenerator.class, e);
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -85,7 +120,12 @@ public class CodeGenerator
     private static void generateFile(File serviceFile, boolean isImpl)
     {
         // 文件名称
-        String fileName = createFileName(isImpl);
+        String serviceName = properties.getProperty("service.target-name");
+        String fileName = CommonUtil.isEmpty(serviceName) ? createFileName(isImpl) : serviceName;
+        if (isImpl)
+        {
+            fileName += "Impl";
+        }
 
         // 文件内容
         String content = createContent(fileName, isImpl);
@@ -202,10 +242,6 @@ public class CodeGenerator
 
         // 文件的完整名称
         String finalFileName = fileName + type + "Service";
-        if (isImpl)
-        {
-            finalFileName += "Impl";
-        }
 
         return finalFileName;
     }
@@ -275,7 +311,7 @@ public class CodeGenerator
      * 加载配置
      * @throws IOException
      */
-    public static void loadProperties() throws IOException
+    private static void loadProperties() throws IOException
     {
         if (CommonUtil.isNull(properties))
         {
