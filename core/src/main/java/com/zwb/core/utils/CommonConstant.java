@@ -46,6 +46,11 @@ public class CommonConstant
      * 冒号字符
      */
     public static final String CHAR_COLON = ":";
+
+    /**
+     * 分号字符
+     */
+    public static final String CHAR_SEMICOLON = ";";
     
     /**
      * 小于字符
