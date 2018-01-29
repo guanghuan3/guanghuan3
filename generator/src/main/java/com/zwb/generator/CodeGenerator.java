@@ -120,8 +120,9 @@ public class CodeGenerator
     private static void generateFile(File serviceFile, boolean isImpl)
     {
         // 文件名称
-        String serviceName = properties.getProperty("service.target-name");
-        String fileName = CommonUtil.isEmpty(serviceName) ? createFileName(isImpl) : serviceName;
+//        String serviceName = properties.getProperty("service.target-name");
+//        String fileName = CommonUtil.isEmpty(serviceName) ? createFileName(isImpl) : serviceName;
+        String fileName = properties.getProperty("service.target-name");
         if (isImpl)
         {
             fileName += "Impl";
