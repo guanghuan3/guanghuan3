@@ -16,7 +16,6 @@ import java.io.IOException;
  * on 2018/1/28.
  */
 @WebServlet(loadOnStartup = 2, name = "initServlet", value = "")
-//@WebServlet(loadOnStartup = 2, name = "initServlet")
 public class InitServlet extends HttpServlet
 {
     @Override
