@@ -212,10 +212,10 @@ public class CodeGenerator
 
         if (isImpl)
         {
-            sb.append(" implements ").append(parentName).append("\n");
+            sb.append(" implements ").append(parentName);
         }
 
-        sb.append("{\n").append("}");
+        sb.append("\n").append("{\n").append("}");
 
         return sb.toString();
     }
