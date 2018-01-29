@@ -13,16 +13,18 @@ import java.util.Properties;
  * Created by Administrator
  * on 2018/1/28.
  */
-//@Configuration
 @Component
-@ConfigurationProperties(prefix = "api-list")
-//@PropertySource(value = "classpath:api-list.yml")
 @PropertySource(value = "classpath:api-list.properties")
+@ConfigurationProperties(prefix = "api-list")
 public class ApiListProperties
 {
     private Properties get;
 
     private Properties post;
+
+    private Properties put;
+
+    private Properties delete;
 
     public Properties getGet()
     {
@@ -44,39 +46,23 @@ public class ApiListProperties
         this.post = post;
     }
 
-    /*Map<String, Object> get;
-
-    Map<String, Object> post;
-
-    private String test;
-
-    public Map<String, Object> getGet()
+    public Properties getPut()
     {
-        return get;
+        return put;
     }
 
-    public void setGet(Map<String, Object> get)
+    public void setPut(Properties put)
     {
-        this.get = get;
+        this.put = put;
     }
 
-    public Map<String, Object> getPost()
+    public Properties getDelete()
     {
-        return post;
+        return delete;
     }
 
-    public void setPost(Map<String, Object> post)
+    public void setDelete(Properties delete)
     {
-        this.post = post;
+        this.delete = delete;
     }
-
-    public String getTest()
-    {
-        return test;
-    }
-
-    public void setTest(String test)
-    {
-        this.test = test;
-    }*/
 }
