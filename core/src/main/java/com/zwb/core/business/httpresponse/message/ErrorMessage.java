@@ -1,6 +1,5 @@
 package com.zwb.core.business.httpresponse.message;
 
-import com.zwb.core.business.httprequest.PageModel;
 import com.zwb.core.utils.CommonConstant;
 import com.zwb.core.utils.CommonUtil;
 
