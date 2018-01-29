@@ -120,8 +120,6 @@ public class CodeGenerator
     private static void generateFile(File serviceFile, boolean isImpl)
     {
         // 文件名称
-//        String serviceName = properties.getProperty("service.target-name");
-//        String fileName = CommonUtil.isEmpty(serviceName) ? createFileName(isImpl) : serviceName;
         String fileName = properties.getProperty("service.target-name");
         if (isImpl)
         {
@@ -195,7 +193,10 @@ public class CodeGenerator
             // 父类引用
             sb.append("import ").append(properties.getProperty("service.target-package")).append(CommonConstant.CHAR_DOT).append(parentName).append(CommonConstant.CHAR_SEMICOLON).append("\n");
             // 注解引入
-            sb.append("import ").append("org.springframework.stereotype.Service");
+            sb.append("import ").append("org.springframework.stereotype.Service").append(CommonConstant.CHAR_SEMICOLON).append("\n");
+            sb.append("import ").append("org.springframework.beans.factory.annotation.Autowired").append(CommonConstant.CHAR_SEMICOLON).append("\n");
+            // mapper引入
+            sb.append("import ").append(properties.getProperty("mapper.target-package")).append(CommonConstant.CHAR_DOT).append(properties.getProperty("mapper.target-name"));
         }
         sb.append(CommonConstant.CHAR_SEMICOLON).append("\n\n");
 
@@ -216,7 +217,17 @@ public class CodeGenerator
             sb.append(" implements ").append(parentName);
         }
 
-        sb.append("\n").append("{\n").append("}");
+        sb.append("\n").append("{\n");
+        if (isImpl)
+        {
+            // 注入一个mapper
+            sb.append("    "); // 添加四个空格
+            sb.append("@Autowired").append("\n");
+
+            sb.append("    "); // 添加四个空格
+            sb.append("private ").append(properties.getProperty("mapper.target-name")).append(" mapper").append(CommonConstant.CHAR_SEMICOLON).append("\n");
+        }
+        sb.append("}");
 
         return sb.toString();
     }
