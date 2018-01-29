@@ -32,14 +32,14 @@ public class CustomerRestController
     {
         // 执行业务
         BusinessExecutor<?> executor = getExecutor(path, RequestMethod.GET);
-        return  executor.execute(request, response, model);
+        return CommonUtil.isNull(executor) ? null : executor.execute(request, response, model);
     }
 
     @RequestMapping(value = "{api_path}", method = RequestMethod.POST)
     public Object post(HttpServletRequest request, HttpServletResponse response, BasicModel model, @PathVariable("api_path") String path)
     {
         BusinessExecutor<?> executor = getExecutor(path, RequestMethod.POST);
-        return executor.execute(request, response, model);
+        return CommonUtil.isNull(executor) ? null : executor.execute(request, response, model);
     }
 
     /**
@@ -67,7 +67,7 @@ public class CustomerRestController
         }
 
         // 获取业务处理类
-        String executorId = apiList.getProperty(path);
+        String executorId = apiList.getProperty(path.indexOf("/") == 0 ? path : "/" + path);
         if (CommonUtil.isEmpty(executorId))
         {
             LoggerUtil.warn(CustomerRestController.class, "没有匹配到Executor：{}", new Object[]{executorId});
