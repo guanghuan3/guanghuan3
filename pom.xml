@@ -20,5 +20,6 @@
 
   <modules>
     <module>core</module>
+    <module>pojo</module>
   </modules>
 </project>
