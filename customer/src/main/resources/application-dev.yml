@@ -2,17 +2,17 @@
 server:
   port: 8081
   context-path: /
-debug: true
+#debug: true
 
 #日志配置
 logging:
-  level:
-    root: debug
-    tk:
-      mybatis:
-        springboot:
-          mapper: trace
   config: classpath:logback.xml
+#  level:
+#    root: debug
+#    tk:
+#      mybatis:
+#        springboot:
+#          mapper: trace
 
 #数据源
 spring:
@@ -39,12 +39,3 @@ pagehelper:
   reasonable: true
   params: count=countSql
   helper-dialect: mysql
-
-#api-list:
-#  get:
-#    /customer: getCustomerExecutor
-#    /country: getCountryExecutor
-#    /country/list: getCountryListExecutor
-#  post:
-#    /customer: addCustomerExecutor
-#    /customer/details: addCustomerDetailsExecutor

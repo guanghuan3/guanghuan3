@@ -7,6 +7,11 @@
 	<property name="logs_dir" value="D:/zwb/logs/customer" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<pattern>
 				[INTF]-[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread]	[%-5level] %logger{32} - %msg%n
