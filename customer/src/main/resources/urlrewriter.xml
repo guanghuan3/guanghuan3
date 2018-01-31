@@ -13,7 +13,7 @@
 
     <rule match-type="wildcard">
         <from>/user/**</from><!-- 匹配/user/后的所有内容，并赋值到$1 -->
-        <to type="forward">/customer/-$1</to><!-- $为替换之前匹配的值 -->
+        <to type="forward">/customer/${replace:$1:/:_}</to><!-- $为替换之前匹配的值 -->
     </rule>
 
 </urlrewrite>
