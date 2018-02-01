@@ -1,6 +1,6 @@
 package com.guanghuan3.customer;
 
-import com.guanghuan3.configurations.ApiListProperties;
+import com.guanghuan3.configurations.apilist.ApiListProperties;
 import com.zwb.core.business.BusinessExecutor;
 import com.zwb.core.business.httprequest.BasicModel;
 import com.zwb.core.utils.ApplicationContextFactory;
