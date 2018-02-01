@@ -6,7 +6,7 @@ import com.zwb.core.business.httprequest.BasicModel;
 import com.zwb.core.utils.ApplicationContextFactory;
 import com.zwb.core.utils.CommonUtil;
 import com.zwb.core.utils.LoggerUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zwb.springmvc.controller.RestfulController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +22,8 @@ import java.util.Properties;
  */
 @RestController
 @RequestMapping("customer")
-public class CustomerRestController
+public class CustomerRestController extends RestfulController
 {
-    @Autowired
-    private ApiListProperties apiListProperties;
 
     @RequestMapping(value = "{api_path}", method = RequestMethod.GET)
     public Object get(HttpServletRequest request, HttpServletResponse response, BasicModel model, @PathVariable("api_path") String path)
@@ -54,11 +52,11 @@ public class CustomerRestController
         ApiListProperties properties = (ApiListProperties) ApplicationContextFactory.getBean("apiListProperties");
         if (CommonUtil.isNull(properties))
         {
-            LoggerUtil.warn(CustomerRestController.class, "没有获取到配置的接口列表：{}", new Object[]{apiListProperties});
+            LoggerUtil.warn(CustomerRestController.class, "没有获取到配置的接口列表：[apiListProperties]");
             return null;
         }
 
-        // 获取get方法的api列表
+        // 根据请求方法获取对应的api列表
         Properties apiList = getPropertiesByRequestMethod(method, properties);
         if (CommonUtil.isEmpty(apiList))
         {
@@ -67,7 +65,7 @@ public class CustomerRestController
         }
 
         // 获取业务处理类
-        String executorId = apiList.getProperty(path.indexOf("/") == 0 ? path : "/" + path);
+        String executorId = apiList.getProperty(path);
         if (CommonUtil.isEmpty(executorId))
         {
             LoggerUtil.warn(CustomerRestController.class, "没有匹配到Executor：{}", new Object[]{executorId});

@@ -21,5 +21,6 @@
   <modules>
     <module>core</module>
     <module>pojo</module>
+    <module>generator</module>
   </modules>
 </project>
