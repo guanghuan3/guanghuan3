@@ -1,9 +1,7 @@
 package com.guanghuan3.configurations.components;
 
 import com.zwb.core.utils.RedisManager;
-import net.sf.ehcache.CacheManager;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
