@@ -3,7 +3,7 @@ package com.zwb.common.business.sys.errorcode.service.impl;
 import com.zwb.common.business.sys.errorcode.service.ErrorCodeInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.zwb.common.business.sys.errorcode.mappr.CommonErrorCodeInfoMapper;
+import com.zwb.common.business.sys.errorcode.mapper.CommonErrorCodeInfoMapper;
 
 import java.util.List;
 import java.util.Map;
