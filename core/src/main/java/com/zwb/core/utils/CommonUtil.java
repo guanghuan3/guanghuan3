@@ -1,5 +1,8 @@
 package com.zwb.core.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -123,6 +126,27 @@ public class CommonUtil
         {
             return getRandNum(length, str);
         }
+    }
+
+    /**
+     * 将对象序列化成json字符串
+     * @param obj
+     * @return
+     */
+    public static String objectToJsonString(Object obj)
+    {
+        if (isNotEmpty(obj))
+        {
+            try
+            {
+                return new ObjectMapper().writeValueAsString(obj);
+            }
+            catch (JsonProcessingException e)
+            {
+                LoggerUtil.error(CommonUtil.class, e);
+            }
+        }
+        return "";
     }
 
     public static void main(String[] args)
