@@ -14,7 +14,11 @@ import java.util.UUID;
 
 /**
  * 消息消费者模板类
- * 消息接受者需要在 applicationContext_activemq 文件中的 jms:listener-container 中注册
+ * 使用配置文件 jms:listener-container 中注册
+ * 例如：
+ * <jms:listnener-container destination-type="queue" container-type="default" connection-factory="connectionFactorySpringId" acknowledge="auto">
+ *      <jms:listener destination="queue.destination.name" ref="springBeanId"/>
+ * </jms:listnener-container>
  * @author Administrator
  *
  */
