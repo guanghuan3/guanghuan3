@@ -1,5 +1,8 @@
 package com.zwb.jms.activemq;
 
+import com.zwb.core.utils.CommonUtil;
+import com.zwb.core.utils.LoggerUtil;
+
 /**
  * 消息实体工厂类
  * 提供获取消息实体类的方法
@@ -56,6 +59,43 @@ public class AmqMessageFactory
     public static AmqMessage getAmqMessage(String destination, boolean isPubSubDomain)
     {
         return isPubSubDomain ? new AmqTopicMessage(destination) : new AmqQueueMessage(destination);
+    }
+
+    /**
+     * 默认预处理消息AmqMessage，将json转成对象，或直接使用string类型消息数据
+     * @param amqMessage
+     * @return
+     */
+    public static MessageData convertMessage(AmqMessage amqMessage)
+    {
+        // 消息数据对象，
+        MessageData messageData = new MessageData();
+
+        if (CommonUtil.isNotEmpty(amqMessage))
+        {
+            // 消息生产者传递的消息对象的json字符串数据
+            String jsonData = amqMessage.getJsonData();
+
+            // 字符串消息
+            messageData.setStringData(jsonData);
+            if (CommonUtil.isNotEmpty(jsonData))
+            {
+                try
+                {
+                    // 将消息对象的json字符串转换成指定类型
+                    Object data = CommonUtil.readFromString(jsonData, amqMessage.getDataClazz());
+                    messageData.setMainData(data);
+                }
+                catch (Exception e)
+                {
+                    LoggerUtil.error(AbstractMessageConsumer.class, e);
+                    // json串转换异常，直接赋值为string数据类型
+                    messageData.setMainData(jsonData);
+                }
+            }
+        }
+
+        return messageData;
     }
     
 }
