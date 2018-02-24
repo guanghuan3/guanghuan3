@@ -16,6 +16,14 @@
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <spring.version>4.3.14.RELEASE</spring.version>
+    <httpclient.version>4.5.5</httpclient.version>
+    <fastjson.version>1.2.46</fastjson.version>
+    <tkmapper.version>3.5.0</tkmapper.version>
+    <jedis.version>2.9.0</jedis.version>
+    <ehcache.version>2.10.4</ehcache.version>
+    <spring.data.redis>1.7.5.RELEASE</spring.data.redis>
+    <commonsio.version>2.4</commonsio.version>
+    <commonscodec.version>1.11</commonscodec.version>
   </properties>
 
   <modules>
