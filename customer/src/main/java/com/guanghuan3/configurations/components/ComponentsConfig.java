@@ -1,11 +1,11 @@
 package com.guanghuan3.configurations.components;
 
-import net.sf.ehcache.CacheManager;
+import com.zwb.core.utils.RedisManager;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -19,9 +19,17 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ServletComponentScan("com.guanghuan3.web")
 public class ComponentsConfig
 {
-    /*@Bean
-    public EhCacheCacheManager cacheManager(CacheManager ehCacheManager)
+
+    /**
+     * 自定义redis管理工具类注册
+     * @param redisTemplate
+     * @return
+     */
+    @Bean
+    public RedisManager getRedisManager(RedisTemplate redisTemplate)
     {
-        return new EhCacheCacheManager(ehCacheManager);
-    }*/
+        RedisManager rm = new RedisManager();
+        rm.setRedisTemplate(redisTemplate);
+        return rm;
+    }
 }

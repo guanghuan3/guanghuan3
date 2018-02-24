@@ -1,4 +1,4 @@
-package com.zwb.common.business.sys.errorcode.mappr;
+package com.zwb.common.business.sys.errorcode.mapper;
 
 import java.util.List;
 import java.util.Map;

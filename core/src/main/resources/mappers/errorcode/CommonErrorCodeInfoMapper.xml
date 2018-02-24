@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zwb.common.business.sys.errorcode.mappr.CommonErrorCodeInfoMapper">
+<mapper namespace="com.zwb.common.business.sys.errorcode.mapper.CommonErrorCodeInfoMapper">
 
     <!-- 查询sys_error_code集合 -->
     <select id="getErrorCode" parameterType="map" resultType="map">

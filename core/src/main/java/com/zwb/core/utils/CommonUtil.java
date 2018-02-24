@@ -1,5 +1,9 @@
 package com.zwb.core.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -9,6 +13,8 @@ import java.util.Map;
  */
 public class CommonUtil
 {
+    private static ObjectMapper om = new ObjectMapper();
+
     /**
      * 判断对象是否为空：null
      * @param obj 目标对象
@@ -125,6 +131,27 @@ public class CommonUtil
         }
     }
 
+    /**
+     * 将对象序列化成json字符串
+     * @param obj
+     * @return
+     */
+    public static String objectToJsonString(Object obj)
+    {
+        if (isNotEmpty(obj))
+        {
+            try
+            {
+                return om.writeValueAsString(obj);
+            }
+            catch (JsonProcessingException e)
+            {
+                LoggerUtil.error(CommonUtil.class, e);
+            }
+        }
+        return "";
+    }
+
     public static void main(String[] args)
     {
         for (int j =0; j < 100; j ++)
@@ -134,6 +161,30 @@ public class CommonUtil
                 System.err.println(getRandNum(i, null));
             }
         }
+    }
+
+    /**
+     * json字符串转指定类型的对象
+     * @param content
+     * @param cls
+     * @return
+     * @throws Exception
+     */
+    public static <T> T readFromString(String content, Class<T> cls) throws Exception
+    {
+        return om.readValue(content, cls);
+    }
+
+    /**
+     * jackson使用javaType将json转为对象
+     * @param content
+     * @param type
+     * @return
+     * @throws Exception
+     */
+    public static <T> T readFromString(String content, JavaType type) throws Exception
+    {
+        return om.readValue(content, type);
     }
 
 }
