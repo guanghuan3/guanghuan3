@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * Created by Administrator
+ * 泛型是当前controller处理异常时的返回类型
+ * 例如页面跳转，使用ModelAndView；接口返回，使用ResponseData
  * on 2018/1/31.
  */
 public abstract class BasicController<T>
